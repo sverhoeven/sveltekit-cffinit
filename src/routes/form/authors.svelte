@@ -1,8 +1,23 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-import { authors } from '../../store/cff';
-import type { Author } from '../../store/cff';
+	import { authors } from '../../store/cff';
+	import type { Author } from '../../store/cff';
 	import { expanded } from '../../store/stepper';
+	import {
+		Form,
+		FormGroup,
+		Button,
+		Input,
+		Label,
+		Nav,
+		NavItem,
+		NavLink,
+		Container,
+		Row,
+		Col,
+		Icon
+	} from 'sveltestrap/src';
+
 	let editing = -1;
 
 	function addMoreProperties() {
@@ -11,13 +26,12 @@ import type { Author } from '../../store/cff';
 	}
 
 	function addAuthor() {
-		const newAuthor: Author = {
-		};
+		const newAuthor: Author = {};
 		$authors = [...$authors, newAuthor];
 		editing = $authors.length - 1;
 	}
 	function deleteAuthor(index) {
-		$authors = [...$authors.slice(0, index)];
+		$authors = $authors.filter((_,i) => i !== index);
 	}
 
 	function editAuthor(index) {
@@ -25,67 +39,95 @@ import type { Author } from '../../store/cff';
 	}
 </script>
 
-AUTHORS
-
 <ul>
 	{#each $authors as author, index}
 		<li>
 			{#if index === editing}
-				<label>
-					Given name(s)
-					<input bind:value={author.given_names} />
-				</label>
-
-				<label>
-					Name particle
-					<input bind:value={author.name_particle} />
-				</label>
-
-				<label>
-					Family name(s)
-					<input bind:value={author.family_names} />
-				</label>
-
-				<label>
-					Suffix
-					<input bind:value={author.name_suffix} />
-				</label>
-
-				<label>
-					Email
-					<input bind:value={author.email} />
-				</label>
-
-				<label>
-					Affiliation
-					<input bind:value={author.affiliation} />
-				</label>
-
-				<label>
-					ORCID identifier
-					<input bind:value={author.orcid} />
-				</label>
-
-				<button on:click={() => deleteAuthor(index)}>X</button>
+				<Form>
+					<Container>
+						<Row>
+							<Col>
+								<FormGroup>
+									<Label>Given name(s)</Label>
+									<Input bind:value={author.given_names} />
+								</FormGroup>
+							</Col>
+							<Col>
+								<FormGroup>
+									<Label>Name particle</Label>
+									<Input bind:value={author.name_particle} />
+								</FormGroup>
+							</Col>
+							<Col>
+								<FormGroup>
+									<Label>Family name(s)</Label>
+									<Input bind:value={author.family_names} />
+								</FormGroup>
+							</Col>
+							<Col>
+								<FormGroup>
+									<Label>Suffix</Label>
+									<Input bind:value={author.name_suffix} />
+								</FormGroup>
+							</Col>
+						</Row>
+						<Row>
+							<Col>
+								<FormGroup>
+									<Label>Email</Label>
+									<Input type="email" bind:value={author.email} />
+								</FormGroup>
+							</Col>
+						</Row>
+						<Row>
+							<Col>
+								<FormGroup>
+									<Label>Affiliation</Label>
+									<Input bind:value={author.affiliation} />
+								</FormGroup>
+							</Col>
+							<Col>
+								<FormGroup>
+									<Label>ORCID identifier</Label>
+									<Input bind:value={author.orcid} />
+								</FormGroup>
+							</Col>
+						</Row>
+						<Row>
+							<Col>
+						<Button on:click={() => deleteAuthor(index)}><Icon name="trash"/></Button>
+							</Col>
+</Row>
+					</Container>
+				</Form>
 			{:else}
-				<p>{author.given_names} {author.name_particle} {author.family_names} {author.name_suffix}</p>
+				<p>
+					{author.given_names}
+					{author.name_particle}
+					{author.family_names}
+					{author.name_suffix}
+				</p>
 				<p>{author.email}</p>
 				<p>{author.affiliation} {author.orcid}</p>
-				<button on:click={() => editAuthor(index)}>E</button>
+				<Button on:click={() => editAuthor(index)}><Icon name="pencil"/></Button>
 			{/if}
 		</li>
 	{/each}
 </ul>
-<button on:click={addAuthor}>+</button>
+<Button on:click={addAuthor}><Icon name="plus"/></Button>
 
-<ol>
-	<li><a href="title">Back</a></li>
-	<li><a href="/finish">Finish</a></li>
-	<li>
+<Nav pills>
+	<NavItem>
+		<NavLink href="title">Back</NavLink>
+	</NavItem>
+	<NavItem>
+		<NavLink href="/finish">Finish</NavLink>
+	</NavItem>
+	<NavItem>
 		{#if $expanded}
-			<li><a href="authors">Next</a></li>
+			<NavLink active href="authors">Next</NavLink>
 		{:else}
-			<button on:click={addMoreProperties}>Add more properties</button>
+			<NavLink active on:click={addMoreProperties}>Add more properties</NavLink>
 		{/if}
-	</li>
-</ol>
+	</NavItem>
+</Nav>

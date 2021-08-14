@@ -83,7 +83,9 @@ export function reset(): void {
 function author2cff(author: Author) {
 	const a = {};
 	for (const k in author) {
-		a[k.replace('_', '-')] = author[k];
+		if (author[k]) {
+			a[k.replace('_', '-')] = author[k];
+		}
 	}
 	return a;
 }

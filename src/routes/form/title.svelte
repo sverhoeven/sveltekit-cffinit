@@ -1,31 +1,32 @@
 <script lang="ts">
 	import { type, title, message } from '../../store/cff';
+	import { Form, FormGroup, FormText, Input, Label, Nav, NavItem, NavLink } from 'sveltestrap/src';
 </script>
 
 TITLE
 
-<label>
-	What is the title of the work?
-	<input bind:value={$title} />
-</label>
+<Form>
+	<FormGroup>
+		<Label for="title">What is the title of the work?</Label>
+		<Input bind:value={$title} id="title" placeholder="title" />
+	</FormGroup>
 
-<label>
-	What do you want citers to do with the information provided in your CITATION.cff file?
-	<input bind:value={$message} />
-</label>
+	<FormGroup>
+		<Label for="message"
+			>What do you want citers to do with the information provided in your CITATION.cff file?</Label
+		>
+		<Input bind:value={$message} id="message" placeholder="message" />
+	</FormGroup>
 
-<div>
-	What type of work does this CITATION.cff describe?
-	<label>
-		<input type="radio" bind:group={$type} value="software" />
-		Software
-	</label>
-	<label>
-		<input type="radio" bind:group={$type} value="dataset" />
-		Dataset
-	</label>
-</div>
+	<FormGroup>
+		<Label>What type of work does this CITATION.cff describe?</Label>
+		<Input type="radio" bind:group={$type} value="software" label="Software" />
+		<Input type="radio" bind:group={$type} value="dataset" label="Dataset" />
+	</FormGroup>
+</Form>
 
-<ol>
-	<li><a href="authors">Next</a></li>
-</ol>
+<Nav pills>
+	<NavItem>
+		<NavLink active href="authors">Next</NavLink>
+	</NavItem>
+</Nav>

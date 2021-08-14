@@ -1,5 +1,5 @@
 {
-	"name": "~TODO~",
+	"name": "cffinit",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "svelte-kit dev",
@@ -20,7 +20,7 @@
 		"eslint-plugin-svelte3": "^3.2.0",
 		"prettier": "~2.2.1",
 		"prettier-plugin-svelte": "^2.2.0",
-		"svelte": "^3.34.0",
+		"svelte": "^3.42.1",
 		"svelte-check": "^2.0.0",
 		"svelte-preprocess": "^4.0.0",
 		"tslib": "^2.0.0",
@@ -29,6 +29,7 @@
 	"type": "module",
 	"dependencies": {
 		"js-yaml": "^4.1.0",
-		"spdx-license-ids": "^3.0.10"
+		"spdx-license-ids": "^3.0.10",
+		"sveltestrap": "^5.6.1"
 	}
 }
