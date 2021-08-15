@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Button, Container, Row, Col } from 'sveltestrap/src';
 	import { goto } from '$app/navigation';
 
 	import { reset } from '../store/cff';
@@ -11,9 +12,16 @@
 	}
 </script>
 
-FINISH
+<Container class="d-flex flex-column justify-content-between h-100">
+	<Row>
+		<Col>
+			<h1>Congratulations!</h1>
 
-<a href={$last_step}>Back to form</a>
-<button on:click={createAnother}>Create another</button>
-
-<Preview />
+			<Button href={$last_step}>Back to form</Button>
+			<Button on:click={createAnother}>Create another</Button>
+		</Col>
+		<Col>
+			<Preview real={true} />
+		</Col>
+	</Row>
+</Container>

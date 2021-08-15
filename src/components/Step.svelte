@@ -1,23 +1,24 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { NavLink } from 'sveltestrap';
+	import { NavLink, Icon } from 'sveltestrap';
 
 	export let disabled = false;
 	export let done = false;
 	export let error = false;
 	export let href: string;
 	export let title: string;
+	$: color = error ? 'danger' : 'primary';
 </script>
 
-<NavLink {href} {disabled}>
+<NavLink {href} {disabled} {color}>
 	<!-- TODO icon -->
 	<span class:current={$page.path == href}>
 		{#if done}
-			V
+			<Icon name="circle-fill" />
 		{:else if error}
-			X
+			<Icon name="x" />
 		{:else}
-			_
+			<Icon name="circle" />
 		{/if}
 		{title}
 	</span>

@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { type, title, message } from '../../store/cff';
-	import { Form, FormGroup, FormText, Input, Label, Nav, NavItem, NavLink } from 'sveltestrap/src';
+	import { Form, FormGroup, Input, Label } from 'sveltestrap/src';
+	import StepperActions from '../../components/StepperActions.svelte';
 </script>
-
-TITLE
 
 <Form>
 	<FormGroup>
@@ -25,8 +24,4 @@ TITLE
 	</FormGroup>
 </Form>
 
-<Nav pills>
-	<NavItem>
-		<NavLink active href="authors">Next</NavLink>
-	</NavItem>
-</Nav>
+<StepperActions noback={true} nofinish={true} next="authors" />

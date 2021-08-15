@@ -1,26 +1,45 @@
 <script>
 	import { Styles } from 'sveltestrap/src';
-	import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Icon } from 'sveltestrap/src';
+	import Header from '../components/Header.svelte';
 </script>
 
 <Styles />
 
-<Navbar color="light" light expand="md">
-	<NavbarBrand href="/">Citation file initializer</NavbarBrand>
+<svelte:head>
+	<title>Citation file initializer</title>
+	<meta name="description" content="Wizard form to create a CITATION.cff file.">
+</svelte:head>
 
-	<Nav class="ms-auto" navbar>
-		<NavItem>
-			<NavLink title="Report an issue" href="https://github.com/citation-file-format/cffinit/issues"><Icon name="bug"/></NavLink>
-		</NavItem>
-		<NavItem>
-			<NavLink href="https://github.com/citation-file-format/citation-file-format">Docs</NavLink>
-		</NavItem>
-		<NavItem>
-			<NavLink href="/about">About</NavLink>
-		</NavItem>
-	</Nav>
-</Navbar>
-
-<div style="padding-top: 30px">
-	<slot />
+<div class="w-100 h-100">
+	<Header />
+	<div class="page_container w-100 p-3">
+		<slot />
+	</div>
 </div>
+
+<style>
+	:global(html),
+	:global(body) {
+		margin: 0;
+		padding: 0;
+	}
+
+	:global(body) {
+		height: 100vh;
+		width: 100vw;
+	}
+
+	:global(#svelte) {
+		height: 100%;
+		width: 100%;
+	}
+
+	:global(*) {
+		box-sizing: border-box;
+	}
+
+	.page_container {
+		/* Exclude navbar from total height */
+		height: calc(100% - 56px);
+	}
+</style>

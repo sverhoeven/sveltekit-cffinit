@@ -132,7 +132,7 @@ export const obj = derived(
 			type: $type
 		};
 		if ($authors.length > 0) {
-			o.authors = $authors.map(author2cff)
+			o.authors = $authors.map(author2cff);
 		}
 		if ($identifiers.length > 0) {
 			o.identifiers = $identifiers;
@@ -181,6 +181,7 @@ function valid_author(author: Author) {
 		return orcid_regexp.test(author.orcid);
 	}
 	// TODO check other author fields
+	return true;
 }
 
 export const is_valid_authors_step = derived(

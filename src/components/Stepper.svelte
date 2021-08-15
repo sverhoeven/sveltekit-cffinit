@@ -26,7 +26,7 @@
 	{#if $expanded}
 		<Step done={$is_valid_identifiers_step} href="/form/identifiers" title="Identifiers" />
 
-			<Step done={$is_valid_resources_step} href="/form/resources" title="Related resources" />
+		<Step done={$is_valid_resources_step} href="/form/resources" title="Related resources" />
 
 		<Step done={$is_valid_abstract_step} href="/form/abstract" title="Abstract" />
 		<Step done={$is_valid_keywords_step} href="/form/keywords" title="Keywords" />

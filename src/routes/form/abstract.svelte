@@ -1,26 +1,17 @@
 <script lang="ts">
 	import { abstract } from '../../store/cff';
+	import StepperActions from '../../components/StepperActions.svelte';
+	import { Form, FormGroup, Input, Label } from 'sveltestrap/src';
 	// When visiting directly stepper should be expanded
 	import { expanded } from '../../store/stepper';
 	expanded.set(true);
 </script>
 
-ABSTRACT
+<Form>
+	<FormGroup>
+		<Label for="abstract">What is the abstract of the work?</Label>
+		<Input type="textarea" bind:value={$abstract} id="abstract" placeholder="abstract" rows="15" />
+	</FormGroup>
+</Form>
 
-<labe>
-	What is the abstract of the work?
-	<textarea bind:value={$abstract} />
-</labe>
-
-<ol>
-	<li><a href="resoures">Back</a></li>
-	<li><a href="/finish">Finish</a></li>
-	<li><a href="keywords">Next</a></li>
-</ol>
-
-<style>
-	textarea {
-		width: 100%;
-		height: 200px;
-	}
-</style>
+<StepperActions back="resources" next="keywords" />

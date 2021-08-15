@@ -1,7 +1,9 @@
 <script lang="ts">
 	import type { Identifier } from '../../store/cff';
-	import { available_identifier_types, identifier_type_label_lookup}from '../../store/cff';
+	import { available_identifier_types, identifier_type_label_lookup } from '../../store/cff';
 	import { identifiers } from '../../store/cff';
+	import StepperActions from '../../components/StepperActions.svelte';
+	import { Form, FormGroup, Button, Input, Label, Icon } from 'sveltestrap/src';
 
 	// When visiting directly stepper should be expanded
 	import { expanded } from '../../store/stepper';
@@ -17,55 +19,57 @@
 		$identifiers = [...$identifiers, newIdentifier];
 		editing = $identifiers.length - 1;
 	}
-	function deleteIdentifier(index) {
+	function deleteIdentifier(index: number) {
 		$identifiers = [...$identifiers.slice(0, index)];
 	}
 
-	function editIdentifier(index) {
+	function editIdentifier(index: number) {
 		editing = index;
 	}
 </script>
 
-IDENTIFIERS
+<div>
+	<ul>
+		{#each $identifiers as identifier, index}
+			<li>
+				{#if index === editing}
+					<Form>
+						<div class="d-flex justify-content-between gap-1">
+							<FormGroup>
+								{#each available_identifier_types as type_label}
+									<Input
+										type="radio"
+										bind:group={identifier.type}
+										value={type_label[0]}
+										label={type_label[1]}
+										class="form-check-inline"
+									/>
+								{/each}
+							</FormGroup>
+							<Button title="Delete" on:click={() => deleteIdentifier(index)}
+								><Icon name="trash" /></Button
+							>
+						</div>
+						<FormGroup>
+							<Label>Value</Label>
+							<Input bind:value={identifier.value} />
+						</FormGroup>
+						<FormGroup>
+							<Label>Description</Label>
+							<Input bind:value={identifier.description} />
+						</FormGroup>
+					</Form>
+				{:else}
+					<p>{identifier_type_label_lookup.get(identifier.type)}</p>
+					<p>{identifier.value}</p>
+					<p>{identifier.description}</p>
+					<Button title="Edit" on:click={() => editIdentifier(index)}><Icon name="pencil" /></Button
+					>
+				{/if}
+			</li>
+		{/each}
+	</ul>
+	<Button title="Add identifier" on:click={addIdentifier}><Icon name="plus" /></Button>
+</div>
 
-<ul>
-	{#each $identifiers as identifier, index}
-		<li>
-			{#if index === editing}
-				<div>
-					Type
-					{#each available_identifier_types as type_label}
-						<label>
-							<input type="radio" bind:group={identifier.type} value={type_label[0]} />
-							{type_label[1]}
-						</label>
-					{/each}
-				</div>
-
-				<label>
-					Value
-					<input bind:value={identifier.value} />
-				</label>
-
-				<label>
-					Description
-					<input bind:value={identifier.description} />
-				</label>
-
-				<button on:click={() => deleteIdentifier(index)}>X</button>
-			{:else}
-				<p>{identifier_type_label_lookup.get(identifier.type)}</p>
-				<p>{identifier.value}</p>
-				<p>{identifier.description}</p>
-				<button on:click={() => editIdentifier(index)}>E</button>
-			{/if}
-		</li>
-	{/each}
-</ul>
-<button on:click={addIdentifier}>+</button>
-
-<ol>
-	<li><a href="authors">Back</a></li>
-	<li><a href="/finish">Finish</a></li>
-	<li><a href="resources">Next</a></li>
-</ol>
+<StepperActions back="authors" next="resources" />
