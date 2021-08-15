@@ -2,6 +2,11 @@
 	import { dump } from 'js-yaml';
 	import { obj } from '../store/cff';
 	import { Button, Card, CardBody, CardFooter, CardText, Icon, Toast } from 'sveltestrap/src';
+	import Highlight from 'svelte-highlight';
+	import YAML from 'svelte-highlight/src/languages/yaml';
+	import github from 'svelte-highlight/src/styles/github';
+	import { is_yaml_valid } from '../store/validate';
+
 	$: body = dump($obj, {
 		indent: 4
 	});
@@ -18,7 +23,9 @@
 	}
 </script>
 
-<div />
+<svelte:head>
+	{@html github}
+</svelte:head>
 
 <Card>
 	<CardBody>
@@ -46,14 +53,25 @@
 				>
 			</div>
 
-			<pre
+			<Highlight
 				on:mouseenter={() => (mouseover = true)}
-				on:mouseleave={() => (mouseover = false)}>
-			{ body }
-			</pre>
+				on:mouseleave={() => (mouseover = false)}
+				language={YAML}
+				code={body}
+			/>
 		</CardText>
 	</CardBody>
 	<CardFooter>
+		{#if $is_yaml_valid.valid}
+			<p>File is valid</p>
+		{:else}
+			<p>File is invalid</p>
+			<ul>
+				{#each $is_yaml_valid.errors as e}
+					<li title={JSON.stringify(e, undefined, 2)}>{e.message}</li>
+				{/each}
+			</ul>
+		{/if}
 		<Button {color} block={true} href={download} download="CITATION.cff"
 			><Icon name="download" /> Download</Button
 		>

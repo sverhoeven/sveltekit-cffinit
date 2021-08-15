@@ -7,7 +7,7 @@
 
 <svelte:head>
 	<title>Citation file initializer</title>
-	<meta name="description" content="Wizard form to create a CITATION.cff file.">
+	<meta name="description" content="Wizard form to create a CITATION.cff file." />
 </svelte:head>
 
 <div class="w-100 h-100">

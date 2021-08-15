@@ -12,7 +12,11 @@
 			>
 		</NavItem>
 		<NavItem>
-			<NavLink title="Documentation" href="https://github.com/citation-file-format/citation-file-format"><Icon name="map" /></NavLink>
+			<NavLink
+				title="Documentation"
+				href="https://github.com/citation-file-format/citation-file-format/blob/main/schema-guide.md"
+				><Icon name="map" /></NavLink
+			>
 		</NavItem>
 		<NavItem>
 			<NavLink title="About" href="/about"><Icon name="question-square" /></NavLink>
