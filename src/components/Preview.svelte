@@ -52,13 +52,13 @@
 					><Icon name="file-code" /></Button
 				>
 			</div>
-
-			<Highlight
+			<div
+				class="w-100"
 				on:mouseenter={() => (mouseover = true)}
 				on:mouseleave={() => (mouseover = false)}
-				language={YAML}
-				code={body}
-			/>
+			>
+				<Highlight language={YAML} code={body} />
+			</div>
 		</CardText>
 	</CardBody>
 	<CardFooter>
